@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>단계 선택기</title>
+    <title>배양 상태창</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,37 +12,28 @@
             flex-direction: column;
             align-items: center;
         }
-        .unit-container {
+        .units-container {
             display: flex;
-            justify-content: space-between;
             flex-wrap: wrap;
-            width: 100%;
-            max-width: 1200px;
+            justify-content: center;
+            gap: 20px;
         }
         .unit {
-            flex: 1 1 20%;
-            margin: 10px;
             border: 1px solid #ccc;
             padding: 10px;
             border-radius: 5px;
+            width: 200px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
         .unit-title {
-            font-size: 18px;
+            text-align: center;
             font-weight: bold;
             margin-bottom: 10px;
-            text-align: center;
         }
         .step {
             display: flex;
             align-items: center;
             margin-bottom: 10px;
-            position: relative;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
         .step-button {
             flex: 1;
@@ -61,7 +52,6 @@
         }
         .date-time {
             margin: 10px 0;
-            flex: 1;
             text-align: center;
         }
         .date-time button {
@@ -103,21 +93,10 @@
             margin-top: 20px;
         }
         .sub-options {
-            display: flex;
-            flex-direction: column;
-            margin-left: 20px;
+            margin-left: 10px;
         }
         .sub-checkbox {
-            margin-bottom: 5px;
-        }
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .unit-container {
-                flex-direction: column;
-            }
-            .unit {
-                flex: 1 1 100%;
-            }
+            margin-left: 20px;
         }
     </style>
 </head>
@@ -125,9 +104,9 @@
 
 <h1>미생물 배양 상태창</h1>
 
-<div class="unit-container">
+<div class="units-container">
     <!-- 1호기 -->
-    <div class="unit">
+    <div class="unit" id="unit-1">
         <div class="unit-title">1호기</div>
         <div class="step">
             <button id="step1-1" class="step-button" onclick="toggleStep('step1-1', 1)">물공급</button>
@@ -156,8 +135,8 @@
         <div class="step">
             <button id="step4-1" class="step-button" onclick="toggleStep('step4-1', 1)">배양(종균)</button>
             <div class="sub-options">
-                <label><input type="checkbox" id="sub1-1" class="sub-checkbox"> 멸균(라인, 샘플)</label>
-                <label><input type="checkbox" id="sub2-1" class="sub-checkbox"> 샘플 채취</label>
+                <label><input type="checkbox" id="sub1-1" class="sub-checkbox" onclick="toggleSubOption('sub1-1', 1)"> 멸균(라인, 샘플)</label>
+                <label><input type="checkbox" id="sub2-1" class="sub-checkbox" onclick="toggleSubOption('sub2-1', 1)"> 샘플 채취</label>
             </div>
         </div>
         <div class="date-time date-time-bottom">
@@ -179,7 +158,7 @@
     </div>
 
     <!-- 2호기 -->
-    <div class="unit">
+    <div class="unit" id="unit-2">
         <div class="unit-title">2호기</div>
         <div class="step">
             <button id="step1-2" class="step-button" onclick="toggleStep('step1-2', 2)">물공급</button>
@@ -208,8 +187,8 @@
         <div class="step">
             <button id="step4-2" class="step-button" onclick="toggleStep('step4-2', 2)">배양(종균)</button>
             <div class="sub-options">
-                <label><input type="checkbox" id="sub1-2" class="sub-checkbox"> 멸균(라인, 샘플)</label>
-                <label><input type="checkbox" id="sub2-2" class="sub-checkbox"> 샘플 채취</label>
+                <label><input type="checkbox" id="sub1-2" class="sub-checkbox" onclick="toggleSubOption('sub1-2', 2)"> 멸균(라인, 샘플)</label>
+                <label><input type="checkbox" id="sub2-2" class="sub-checkbox" onclick="toggleSubOption('sub2-2', 2)"> 샘플 채취</label>
             </div>
         </div>
         <div class="date-time date-time-bottom">
@@ -231,7 +210,7 @@
     </div>
 
     <!-- 3호기 -->
-    <div class="unit">
+    <div class="unit" id="unit-3">
         <div class="unit-title">3호기</div>
         <div class="step">
             <button id="step1-3" class="step-button" onclick="toggleStep('step1-3', 3)">물공급</button>
@@ -260,8 +239,8 @@
         <div class="step">
             <button id="step4-3" class="step-button" onclick="toggleStep('step4-3', 3)">배양(종균)</button>
             <div class="sub-options">
-                <label><input type="checkbox" id="sub1-3" class="sub-checkbox"> 멸균(라인, 샘플)</label>
-                <label><input type="checkbox" id="sub2-3" class="sub-checkbox"> 샘플 채취</label>
+                <label><input type="checkbox" id="sub1-3" class="sub-checkbox" onclick="toggleSubOption('sub1-3', 3)"> 멸균(라인, 샘플)</label>
+                <label><input type="checkbox" id="sub2-3" class="sub-checkbox" onclick="toggleSubOption('sub2-3', 3)"> 샘플 채취</label>
             </div>
         </div>
         <div class="date-time date-time-bottom">
@@ -283,7 +262,7 @@
     </div>
 
     <!-- 4호기 -->
-    <div class="unit">
+    <div class="unit" id="unit-4">
         <div class="unit-title">4호기</div>
         <div class="step">
             <button id="step1-4" class="step-button" onclick="toggleStep('step1-4', 4)">물공급</button>
@@ -312,8 +291,8 @@
         <div class="step">
             <button id="step4-4" class="step-button" onclick="toggleStep('step4-4', 4)">배양(종균)</button>
             <div class="sub-options">
-                <label><input type="checkbox" id="sub1-4" class="sub-checkbox"> 멸균(라인, 샘플)</label>
-                <label><input type="checkbox" id="sub2-4" class="sub-checkbox"> 샘플 채취</label>
+                <label><input type="checkbox" id="sub1-4" class="sub-checkbox" onclick="toggleSubOption('sub1-4', 4)"> 멸균(라인, 샘플)</label>
+                <label><input type="checkbox" id="sub2-4" class="sub-checkbox" onclick="toggleSubOption('sub2-4', 4)"> 샘플 채취</label>
             </div>
         </div>
         <div class="date-time date-time-bottom">
@@ -335,7 +314,7 @@
     </div>
 
     <!-- 5호기 -->
-    <div class="unit">
+    <div class="unit" id="unit-5">
         <div class="unit-title">5호기</div>
         <div class="step">
             <button id="step1-5" class="step-button" onclick="toggleStep('step1-5', 5)">물공급</button>
@@ -364,8 +343,8 @@
         <div class="step">
             <button id="step4-5" class="step-button" onclick="toggleStep('step4-5', 5)">배양(종균)</button>
             <div class="sub-options">
-                <label><input type="checkbox" id="sub1-5" class="sub-checkbox"> 멸균(라인, 샘플)</label>
-                <label><input type="checkbox" id="sub2-5" class="sub-checkbox"> 샘플 채취</label>
+                <label><input type="checkbox" id="sub1-5" class="sub-checkbox" onclick="toggleSubOption('sub1-5', 5)"> 멸균(라인, 샘플)</label>
+                <label><input type="checkbox" id="sub2-5" class="sub-checkbox" onclick="toggleSubOption('sub2-5', 5)"> 샘플 채취</label>
             </div>
         </div>
         <div class="date-time date-time-bottom">
@@ -387,84 +366,110 @@
     </div>
 </div>
 
-<button id="reset-button" onclick="resetAll()">모두 초기화</button>
+<button id="reset-button" onclick="resetAll()">초기화</button>
 
 <div id="date-time-popup">
-    <h3>날짜/시간 선택</h3>
-    <input type="datetime-local" id="date-time-picker">
-    <button onclick="applyDateTime()">적용</button>
+    <h2>날짜/시간 설정</h2>
+    <input type="datetime-local" id="date-time-input">
+    <button onclick="setDateTime()">설정</button>
     <button onclick="closeDateTimePicker()">닫기</button>
 </div>
 
 <script>
-    let currentStep = {};
-    let currentStepStatus = {};
-
-    function toggleStep(stepId, unitNumber) {
-        const stepButtons = document.querySelectorAll(`.unit:nth-of-type(${unitNumber}) .step-button`);
-        stepButtons.forEach(button => button.classList.remove('active'));
-        
-        const selectedButton = document.getElementById(stepId);
-        selectedButton.classList.add('active');
-        
-        const selectedStep = stepId.split('-')[1];
-        const unitSteps = document.querySelectorAll(`.unit:nth-of-type(${unitNumber}) .sub-options input`);
-        unitSteps.forEach(checkbox => checkbox.checked = false);
-
-        if (stepId.startsWith('step4')) {
-            document.querySelectorAll(`.unit:nth-of-type(${unitNumber}) .sub-options input`).forEach(checkbox => checkbox.disabled = false);
-        } else {
-            document.querySelectorAll(`.unit:nth-of-type(${unitNumber}) .sub-options input`).forEach(checkbox => checkbox.disabled = true);
-        }
-        
-        currentStep[unitNumber] = stepId;
-        currentStepStatus[unitNumber] = {};
-        document.querySelectorAll(`.unit:nth-of-type(${unitNumber}) .sub-options input`).forEach(checkbox => {
-            checkbox.checked = false;
-            checkbox.addEventListener('change', () => updateSubOptionsStatus(unitNumber));
+    // Step button toggle functionality
+    function toggleStep(buttonId, unitNumber) {
+        const buttons = document.querySelectorAll(`#unit-${unitNumber} .step-button`);
+        buttons.forEach(btn => {
+            if (btn.id !== buttonId) {
+                btn.classList.remove('active');
+            }
         });
+        const clickedButton = document.getElementById(buttonId);
+        clickedButton.classList.toggle('active');
+        saveState();
     }
 
-    function updateSubOptionsStatus(unitNumber) {
-        const selectedStep = currentStep[unitNumber];
-        if (selectedStep && selectedStep.startsWith('step4')) {
-            const unitSteps = document.querySelectorAll(`.unit:nth-of-type(${unitNumber}) .sub-options input`);
-            unitSteps.forEach(checkbox => {
-                currentStepStatus[unitNumber][checkbox.id] = checkbox.checked;
-            });
-        }
+    // Sub-checkbox toggle functionality
+    function toggleSubOption(checkboxId, unitNumber) {
+        saveState();
     }
 
-    function openDateTimePicker(displayId) {
+    // Date/Time Picker
+    let currentElementId = null;
+
+    function openDateTimePicker(elementId) {
+        currentElementId = elementId;
         document.getElementById('date-time-popup').style.display = 'block';
-        window.currentDisplayId = displayId;
     }
 
     function closeDateTimePicker() {
         document.getElementById('date-time-popup').style.display = 'none';
     }
 
-    function applyDateTime() {
-        const dateTimeValue = document.getElementById('date-time-picker').value;
-        if (window.currentDisplayId) {
-            document.getElementById(window.currentDisplayId).textContent = dateTimeValue;
+    function setDateTime() {
+        const dateTime = document.getElementById('date-time-input').value;
+        if (currentElementId) {
+            document.getElementById(currentElementId).innerText = dateTime;
+            saveState();
+            closeDateTimePicker();
         }
-        closeDateTimePicker();
     }
 
-    function resetAll() {
-        const stepButtons = document.querySelectorAll('.step-button');
-        stepButtons.forEach(button => button.classList.remove('active'));
-        
-        const checkboxes = document.querySelectorAll('.sub-options input');
-        checkboxes.forEach(checkbox => checkbox.checked = false);
-        
-        const dateTimeDisplays = document.querySelectorAll('.display-date-time');
-        dateTimeDisplays.forEach(display => display.textContent = '');
-        
-        currentStep = {};
-        currentStepStatus = {};
+    // Save state to local storage
+    function saveState() {
+        const units = document.querySelectorAll('.unit');
+        units.forEach(unit => {
+            const unitNumber = unit.id.split('-')[1];
+            const buttons = unit.querySelectorAll('.step-button');
+            buttons.forEach(button => {
+                localStorage.setItem(`${unitNumber}-${button.id}`, button.classList.contains('active'));
+            });
+            const checkboxes = unit.querySelectorAll('.sub-checkbox');
+            checkboxes.forEach(checkbox => {
+                localStorage.setItem(`${unitNumber}-${checkbox.id}`, checkbox.checked);
+            });
+            const dateTimes = unit.querySelectorAll('.display-date-time');
+            dateTimes.forEach(dateTime => {
+                localStorage.setItem(`${unitNumber}-${dateTime.id}`, dateTime.innerText);
+            });
+        });
     }
+
+    // Load state from local storage
+    function loadState() {
+        const units = document.querySelectorAll('.unit');
+        units.forEach(unit => {
+            const unitNumber = unit.id.split('-')[1];
+            const buttons = unit.querySelectorAll('.step-button');
+            buttons.forEach(button => {
+                const isActive = localStorage.getItem(`${unitNumber}-${button.id}`) === 'true';
+                if (isActive) {
+                    button.classList.add('active');
+                }
+            });
+            const checkboxes = unit.querySelectorAll('.sub-checkbox');
+            checkboxes.forEach(checkbox => {
+                const isChecked = localStorage.getItem(`${unitNumber}-${checkbox.id}`) === 'true';
+                checkbox.checked = isChecked;
+            });
+            const dateTimes = unit.querySelectorAll('.display-date-time');
+            dateTimes.forEach(dateTime => {
+                const savedDateTime = localStorage.getItem(`${unitNumber}-${dateTime.id}`);
+                if (savedDateTime) {
+                    dateTime.innerText = savedDateTime;
+                }
+            });
+        });
+    }
+
+    // Reset all settings
+    function resetAll() {
+        localStorage.clear();
+        location.reload();
+    }
+
+    // Load state on page load
+    window.onload = loadState;
 </script>
 
 </body>
